@@ -4,5 +4,11 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="all" level="application" />
+    <orderEntry type="library" name="jquery-ui" level="application" />
+    <orderEntry type="library" name="jquery-3.3.1" level="application" />
+    <orderEntry type="library" name="example" level="application" />
+    <orderEntry type="library" name="album" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
   </component>
 </module>
