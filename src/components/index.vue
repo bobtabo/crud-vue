@@ -5,7 +5,7 @@
         </div>
 
         <div style="margin-bottom:20px;">
-          <form id="form" method="post" action="src/views/index.vue">
+          <form id="form" method="post" action="src/components/index.vue">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group row">

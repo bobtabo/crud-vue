@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from './views/index.vue'
-import Create from './views/create.vue'
-import Detail from './views/detail.vue'
-import Edit from './views/edit.vue'
+import Index from './components/index.vue'
+import Create from './components/create.vue'
+import Detail from './components/detail.vue'
+import Edit from './components/edit.vue'
 
 Vue.use(Router)
 

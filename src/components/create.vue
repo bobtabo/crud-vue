@@ -2,7 +2,7 @@
   <header>
     <div class="navbar navbar-dark bg-dark shadow-sm">
       <div class="container d-flex justify-content-between">
-        <a href="src/views/index.vue" class="navbar-brand d-flex align-items-center">
+        <a href="src/components/index.vuex.vue" class="navbar-brand d-flex align-items-center">
           <strong>顧客管理（新規登録）</strong>
         </a>
       </div>
@@ -15,41 +15,41 @@
         【メッセージサンプル】エラーです。
       </div>
 
-      <form id="form" method="post" action="src/views/index.vue">
+      <form id="form" method="post" action="src/components/index.vuex.vue">
         <div class="col-md-8 order-md-1">
           <div class="row">
             <div class="col-md-3 mb-3">
-              <label for="lastName">姓 <span class="badge badge-danger">必須</span></label>
+              <label>姓 <span class="badge badge-danger">必須</span></label>
               <input type="text" class="form-control" name="last_name" placeholder="姓" value="" required>
             </div>
             <div class="col-md-3 mb-3">
-              <label for="firstName">名 <span class="badge badge-danger">必須</span></label>
+              <label>名 <span class="badge badge-danger">必須</span></label>
               <input type="text" class="form-control" name="first_name" placeholder="名" value="" required>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-3 mb-3">
-              <label for="lastKana">姓かな <span class="badge badge-danger">必須</span></label>
+              <label>姓かな <span class="badge badge-danger">必須</span></label>
               <input type="text" class="form-control" name="last_kana" placeholder="姓かな" value="" required>
             </div>
             <div class="col-md-3 mb-3">
-              <label for="firstKana">名かな <span class="badge badge-danger">必須</span></label>
+              <label>名かな <span class="badge badge-danger">必須</span></label>
               <input type="text" class="form-control" name="first_kana" placeholder="名かな" value="" required>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-3 mb-3">
-              <label for="gender">性別 <span class="badge badge-danger">必須</span></label>
+              <label>性別 <span class="badge badge-danger">必須</span></label>
               <div class="col-sm-10 text-left">
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="gender" value="1">
-                  <label class="form-check-label" for="inlineCheckbox1">男</label>
+                  <label class="form-check-label">男</label>
                 </div>
                 <div class="form-check form-check-inline">
                   <input class="form-check-input" type="radio" name="gender" value="2">
-                  <label class="form-check-label" for="inlineCheckbox2">女</label>
+                  <label class="form-check-label">女</label>
                 </div>
               </div>
             </div>
@@ -57,28 +57,28 @@
 
           <div class="row">
             <div class="col-md-2 mb-3">
-              <label for="postCode">郵便番号 <span class="badge badge-danger">必須</span></label>
+              <label>郵便番号 <span class="badge badge-danger">必須</span></label>
               <input type="text" class="form-control" name="post_code" placeholder="郵便番号" value="" required>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-5 mb-3">
-              <label for="address">住所 <span class="badge badge-danger">必須</span></label>
+              <label>住所 <span class="badge badge-danger">必須</span></label>
               <input type="text" class="form-control" name="address" placeholder="渋谷区道玄坂2丁目11-1" value="" required>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-5 mb-3">
-              <label for="building">建物名</label>
+              <label>建物名</label>
               <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="">
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-3 mb-3">
-              <label for="email">メールアドレス <span class="badge badge-danger">必須</span></label>
+              <label>メールアドレス <span class="badge badge-danger">必須</span></label>
               <input type="email" class="form-control" name="email" placeholder="you@example.com" value="" required>
             </div>
           </div>
@@ -86,7 +86,7 @@
       </form>
       <hr class="mb-4">
       <div class="form-group">
-        <a class="btn btn-secondary" href="src/views/index.vue" style="width:150px">戻る</a>
+        <router-link class="btn btn-secondary" :to="{ name: 'index' }" style="width:150px">戻る</router-link>
         <button id="complete" type="button" class="btn btn-success" style="width:150px"><i class="fas fa-database pr-1"></i> 登録</button>
       </div>
     </div>
@@ -96,7 +96,11 @@
     <p><span class="ui-icon ui-icon-info" style="float:left; margin:12px 12px 20px 0;"></span>登録しますか？</p>
   </div>
 
-  <script>
+</template>
+
+<script>
+export default {
+  mounted: function () {
     $("#complete").click(function() {
       completeConfirm(function(result){
         if (result) {
@@ -106,7 +110,6 @@
     });
 
     function completeConfirm(response){
-      notScreenRelease = true;
       var buttons = {};
       buttons['キャンセル'] = function(){$(this).dialog('close');response(false)};
       buttons['登録'] = function(){$(this).dialog('close');response(true)};
@@ -127,5 +130,6 @@
         buttons: buttons
       });
     }
-  </script>
-</template>
+  }
+}
+</script>

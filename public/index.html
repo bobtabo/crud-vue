@@ -36,7 +36,6 @@
 
         <script>
             function completeConfirm(response){
-                notScreenRelease = true;
                 var buttons = {};
                 buttons['キャンセル'] = function(){$(this).dialog('close');response(false)};
                 buttons['@yield('button')'] = function(){$(this).dialog('close');response(true)};
