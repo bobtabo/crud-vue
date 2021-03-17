@@ -44,7 +44,7 @@
             【メッセージサンプル】該当データが見つかりません。
           </div>
           <div class="form-group row">
-            <a class="btn btn-success" href="create.vue" style="width:150px"><i class="fas fa-chalkboard-teacher pr-1"></i> 新規登録</a>
+            <router-link class="btn btn-success" :to="{ name: 'create' }" style="width:150px"><i class="fas fa-chalkboard-teacher pr-1"></i> 新規登録</router-link>
           </div>
         </div>
 
@@ -65,15 +65,15 @@
             </thead>
             <tbody id="content">
             <tr>
-              <td scope="col">1</td>
-              <td scope="col"><a href="detail.vue">苗字  名前</a></td>
-              <td scope="col">みょうじ なまえ</td>
-              <td scope="col">男</td>
-              <td scope="col">123-4567</td>
-              <td scope="col">bobtabo.buhibuhi@gmail.com</td>
-              <td scope="col">2020/08/30  23：12：34</td>
-              <td scope="col">2020/08/30  23：12：34</td>
-              <td scope="col"><a class="btn btn-info" href="edit.vue">編集</a></td>
+              <td>1</td>
+              <td><router-link :to="{ name: 'detail', params: { id: 1 } }">苗字  名前</router-link></td>
+              <td>みょうじ なまえ</td>
+              <td>男</td>
+              <td>123-4567</td>
+              <td>bobtabo.buhibuhi@gmail.com</td>
+              <td>2020/08/30  23：12：34</td>
+              <td>2020/08/30  23：12：34</td>
+              <td><router-link class="btn btn-info" :to="{ name: 'edit', params: { id: 1 } }">編集</router-link></td>
             </tr>
             </tbody>
           </table>

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from './views/index.vue'
-import create from './views/create.vue'
-import detail from './views/detail.vue'
-import edit from './views/edit.vue'
+import Index from './views/index.vue'
+import Create from './views/create.vue'
+import Detail from './views/detail.vue'
+import Edit from './views/edit.vue'
 
 Vue.use(Router)
 
@@ -13,30 +13,23 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'home',
-            component: home,
+            name: 'index',
+            component: Index,
         },
         {
             path: '/create',
-            alias: '/create',
             name: 'create',
-            component: create,
+            component: Create,
         },
         {
-            path: '/detail/:param1',
+            path: '/detail/:id',
             name: 'detail',
-            component: detail,
-            props: {
-                prop1: 111,
-            },
+            component: Detail,
         },
         {
-            path: '/edit/:param1',
+            path: '/edit/:id',
             name: 'edit',
-            component: edit,
-            props: {
-                prop1: 111,
-            },
+            component: Edit,
         },
     ],
 })

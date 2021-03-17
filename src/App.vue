@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import index from './views/index.vue'
+import Index from './views/index.vue'
 
 export default {
   name: 'App',
   components: {
-    index
+    Index
   }
 }
 </script>
