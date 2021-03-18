@@ -64,16 +64,16 @@
         </tr>
         </thead>
         <tbody id="content">
-        <tr>
-          <td>1</td>
-          <td><router-link :to="{ name: 'detail', params: { id: 1 } }">苗字  名前</router-link></td>
-          <td>みょうじ なまえ</td>
-          <td>男</td>
-          <td>123-4567</td>
-          <td>bobtabo.buhibuhi@gmail.com</td>
-          <td>2020/08/30  23：12：34</td>
-          <td>2020/08/30  23：12：34</td>
-          <td><router-link class="btn btn-info" :to="{ name: 'edit', params: { id: 1 } }">編集</router-link></td>
+        <tr v-for="customer in customers" :key="customer.id">
+          <td>{{ customer.id }}</td>
+          <td><router-link :to="{ name: 'detail', params: { id: customer.id } }">{{ customer.last_name }}  {{ customer.first_name }}</router-link></td>
+          <td>{{ customer.last_kana }} {{ customer.first_kana }}</td>
+          <td>{{ customer.gender == 1 ? "男" : "女" }}</td>
+          <td>{{ customer.post_code }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.created_at }}</td>
+          <td>{{ customer.updated_at }}</td>
+          <td><router-link class="btn btn-info" :to="{ name: 'edit', params: { id: customer.id } }">編集</router-link></td>
         </tr>
         </tbody>
       </table>
@@ -83,10 +83,33 @@
 
 <script>
 export default {
+  data() {
+    return {
+      customers: {},
+    };
+  },
   mounted: function () {
     $("#search").click(function() {
       $("form").submit();
     });
+
+    let self = this;
+    let url = 'http://localhost/api/v1/customer';
+    this.axios.get(url).then(function(response){
+      self.customers = response.data;
+    });
+  },
+  name: 'SearchCustomer',
+  methods: {
+    getIndex() {
+      this.axios.get('http://localhost/api/v1/customer')
+        .then((response) => {
+          console.log(response.data.origin);
+        })
+        .catch((e) => {
+          alert(e);
+        });
+    }
   }
-}
+};
 </script>
