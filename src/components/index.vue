@@ -71,8 +71,8 @@
           <td>{{ customer.gender == 1 ? "男" : "女" }}</td>
           <td>{{ customer.post_code }}</td>
           <td>{{ customer.email }}</td>
-          <td>{{ customer.created_at }}</td>
-          <td>{{ customer.updated_at }}</td>
+          <td>{{ customer.created_at | moment }}</td>
+          <td>{{ customer.updated_at | moment }}</td>
           <td><router-link class="btn btn-info" :to="{ name: 'edit', params: { id: customer.id } }">編集</router-link></td>
         </tr>
         </tbody>
@@ -82,6 +82,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 export default {
   data() {
     return {
@@ -98,6 +99,11 @@ export default {
     this.axios.get(url).then(function(response){
       self.customers = response.data;
     });
+  },
+  filters: {
+    moment: function (string) {
+      return moment(string).format('YYYY/MM/DD HH:mm:ss');
+    }
   },
   name: 'SearchCustomer',
   methods: {
