@@ -5,30 +5,30 @@
     </div>
 
     <div style="margin-bottom:20px;">
-      <form id="form" method="post" action="/">
+      <form id="form" @submit.prevent="search">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">姓かな</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="last_kana" placeholder="姓かな">
+                <input v-model="lastKana" type="text" class="form-control" name="last_kana" placeholder="姓かな">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">名かな</label>
               <div class="col-sm-6">
-                <input type="text" class="form-control" name="first_kana" placeholder="名かな">
+                <input v-model="firstKana" type="text" class="form-control" name="first_kana" placeholder="名かな">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">性別</label>
               <div class="col-sm-10 text-left">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" name="gender1" value="1">
+                  <input v-model="gender1" class="form-check-input" type="checkbox" name="gender1" value="1">
                   <label class="form-check-label">男</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" name="gender2" value="2">
+                  <input v-model="gender2" class="form-check-input" type="checkbox" name="gender2" value="2">
                   <label class="form-check-label">女</label>
                 </div>
               </div>
@@ -44,7 +44,7 @@
         【メッセージサンプル】該当データが見つかりません。
       </div>
       <div class="form-group row">
-        <router-link class="btn btn-success" :to="{ name: 'create' }" style="width:150px"><i class="fas fa-chalkboard-teacher pr-1"></i> 新規登録</router-link>
+        <router-link class="btn btn-success" to="/create" style="width:150px"><i class="fas fa-chalkboard-teacher pr-1"></i> 新規登録</router-link>
       </div>
     </div>
 
@@ -86,6 +86,10 @@ import moment from 'moment';
 export default {
   data() {
     return {
+      lastKana: '',
+      firstKana: '',
+      gender1: false,
+      gender2: false,
       customers: {},
     };
   },
@@ -94,11 +98,7 @@ export default {
       $("form").submit();
     });
 
-    let self = this;
-    let url = 'http://localhost/api/v1/customer';
-    this.axios.get(url).then(function(response){
-      self.customers = response.data;
-    });
+    this.search();
   },
   filters: {
     moment: function (string) {
@@ -107,14 +107,24 @@ export default {
   },
   name: 'SearchCustomer',
   methods: {
-    getIndex() {
-      this.axios.get('http://localhost/api/v1/customer')
-        .then((response) => {
-          console.log(response.data.origin);
-        })
-        .catch((e) => {
-          alert(e);
-        });
+    search: function() {
+      console.log(this.gender1);
+      let params = new URLSearchParams();
+      params.append('last_kana', this.lastKana);
+      params.append('first_kana', this.firstKana);
+      this.axios.post('http://localhost/api/v1/customer', {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        responseType: 'json',
+      }, params)
+      .then((response) => {
+        this.customers = response.data;
+        console.log("検索");
+      })
+      .catch((e) => {
+        alert(e);
+      });
     }
   }
 };

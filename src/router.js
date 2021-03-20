@@ -1,11 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Index from './components/index.vue'
-import Create from './components/create.vue'
-import Detail from './components/detail.vue'
-import Edit from './components/edit.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Index from './components/index.vue';
+import Create from './components/create.vue';
+import Detail from './components/detail.vue';
+import Edit from './components/edit.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
     mode: 'history',
@@ -32,4 +32,4 @@ export default new Router({
             component: Edit,
         },
     ],
-})
+});
