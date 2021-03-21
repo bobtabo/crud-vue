@@ -60,7 +60,7 @@
     </div>
     <hr class="mb-4">
     <div class="form-group">
-      <router-link class="btn btn-secondary" :to="{ name: 'index' }" style="width:150px">戻る</router-link>
+      <router-link class="btn btn-secondary" to="/" style="width:150px">戻る</router-link>
       <button id="complete" type="button" class="btn btn-danger" style="width:150px"><i class="fas fa-database pr-1"></i> 削除</button>
     </div>
 
