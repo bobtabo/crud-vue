@@ -11,24 +11,24 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">姓かな</label>
               <div class="col-sm-6">
-                <input v-model="lastKana" type="text" class="form-control" name="last_kana" placeholder="姓かな">
+                <input v-model="last_kana" type="text" class="form-control" name="last_kana" placeholder="姓かな" />
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">名かな</label>
               <div class="col-sm-6">
-                <input v-model="firstKana" type="text" class="form-control" name="first_kana" placeholder="名かな">
+                <input v-model="first_kana" type="text" class="form-control" name="first_kana" placeholder="名かな" />
               </div>
             </div>
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">性別</label>
               <div class="col-sm-10 text-left">
                 <div class="form-check form-check-inline">
-                  <input v-model="gender1" class="form-check-input" type="checkbox" name="gender1" value="1">
+                  <input v-model="gender1" class="form-check-input" type="checkbox" name="gender1" value="1" />
                   <label class="form-check-label">男</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input v-model="gender2" class="form-check-input" type="checkbox" name="gender2" value="2">
+                  <input v-model="gender2" class="form-check-input" type="checkbox" name="gender2" value="2" />
                   <label class="form-check-label">女</label>
                 </div>
               </div>
@@ -86,8 +86,8 @@ import moment from 'moment';
 export default {
   data() {
     return {
-      lastKana: '',
-      firstKana: '',
+      last_kana: '',
+      first_kana: '',
       gender1: false,
       gender2: false,
       customers: {},
@@ -110,8 +110,8 @@ export default {
     search: function() {
       console.log(this.gender1);
       let params = new URLSearchParams();
-      params.append('last_kana', this.lastKana);
-      params.append('first_kana', this.firstKana);
+      params.append('last_kana', this.last_kana);
+      params.append('first_kana', this.first_kana);
       this.axios.post('http://localhost/api/v1/customer', {
         headers: {
           "Content-Type": "application/json",

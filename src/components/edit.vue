@@ -98,7 +98,7 @@ export default {
     $("#complete").click(function() {
       completeConfirm(function(result){
         if (result) {
-          this.update();
+          $("form").submit();
         }
       });
     });
