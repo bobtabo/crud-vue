@@ -4,63 +4,63 @@
       <div class="row">
         <div class="col-md-3 mb-3">
           <label>姓</label>
-          <input type="text" class="form-control" name="last_name" placeholder="姓" value="苗字" readonly>
+          <input type="text" class="form-control" name="last_name" placeholder="姓" :value="customer.last_name" readonly />
         </div>
         <div class="col-md-3 mb-3">
           <label>名</label>
-          <input type="text" class="form-control" name="first_name" placeholder="名" value="名前" readonly>
+          <input type="text" class="form-control" name="first_name" placeholder="名" :value="customer.first_name" readonly />
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-3 mb-3">
           <label>姓かな</label>
-          <input type="text" class="form-control" name="last_kana" placeholder="姓かな" value="みょうじ" readonly>
+          <input type="text" class="form-control" name="last_kana" placeholder="姓かな" :value="customer.last_kana" readonly />
         </div>
         <div class="col-md-3 mb-3">
           <label>名かな</label>
-          <input type="text" class="form-control" name="first_kana" placeholder="名かな" value="なまえ" readonly>
+          <input type="text" class="form-control" name="first_kana" placeholder="名かな" :value="customer.first_kana" readonly />
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-3 mb-3">
+        <div class="col-md-2 mb-3">
           <label>性別</label>
-          <input type="text" class="form-control" name="gender" value="男" readonly>
+          <input type="text" class="form-control" name="gender" :value='customer.gender == 1 ? "男" : "女"' readonly />
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-2 mb-3">
           <label>郵便番号</label>
-          <input type="text" class="form-control" name="post_code" placeholder="郵便番号" value="123-4567" readonly>
+          <input type="text" class="form-control" name="post_code" placeholder="郵便番号" :value="customer.post_code" readonly />
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-5 mb-3">
+        <div class="col-md-7 mb-3">
           <label>住所</label>
-          <input type="text" class="form-control" name="address" placeholder="渋谷区道玄坂2丁目11-1" value="青森市長島一丁目1-1" readonly>
+          <input type="text" class="form-control" name="address" placeholder="渋谷区道玄坂2丁目11-1" :value="customer.address" readonly />
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-5 mb-3">
+        <div class="col-md-7 mb-3">
           <label>建物名</label>
-          <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="" readonly>
+          <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" :value="customer.building" readonly />
         </div>
       </div>
 
       <div class="row">
-        <div class="col-md-3 mb-3">
+        <div class="col-md-6 mb-3">
           <label>メールアドレス</label>
-          <input type="email" class="form-control" name="email" placeholder="you@example.com" value="bobtabo.buhibuhi@gmail.com" readonly>
+          <input type="email" class="form-control" name="email" placeholder="you@example.com" :value="customer.email" readonly />
         </div>
       </div>
     </div>
     <hr class="mb-4">
     <div class="form-group">
-      <router-link class="btn btn-secondary" to="/" style="width:150px">戻る</router-link>
+      <router-link class="btn btn-secondary" to="/" style="width:150px; margin-right: 15px;">戻る</router-link>
       <button id="complete" type="button" class="btn btn-danger" style="width:150px"><i class="fas fa-database pr-1"></i> 削除</button>
     </div>
 
@@ -72,11 +72,18 @@
 
 <script>
 export default {
+  data() {
+    return {
+      customer: null,
+    };
+  },
   mounted: function () {
+    this.detail();
+
     $("#complete").click(function() {
       completeConfirm(function(result){
         if (result) {
-          location.replace("index.vue");
+          location.replace('http://localhost/api/v1/customer/delete/' + this.$route.params.id);
         }
       });
     });
@@ -104,6 +111,22 @@ export default {
         width: 400,
         modal: true,
         buttons: buttons
+      });
+    }
+  },
+  methods: {
+    detail: function() {
+      this.axios.get('http://localhost/api/v1/customer/detail/' + this.$route.params.id, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        responseType: 'json',
+      })
+      .then((response) => {
+        this.customer = response.data;
+      })
+      .catch((e) => {
+        alert(e);
       });
     }
   }

@@ -1,6 +1,6 @@
 <template>
   <div class="py-5 text-center">
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-success" role="alert" style="display: none;">
       【メッセージサンプル】登録しました。
     </div>
 
@@ -40,7 +40,7 @@
       <div class="form-group">
         <button type="button" id="search" class="btn btn-primary" style="width:150px"><i class="fas fa-search pr-1"></i> 検索</button>
       </div>
-      <div class="alert alert-warning" role="alert">
+      <div id="messageSearch" class="alert alert-warning" role="alert">
         【メッセージサンプル】該当データが見つかりません。
       </div>
       <div class="form-group row">
@@ -120,6 +120,11 @@ export default {
       }, params)
       .then((response) => {
         this.customers = response.data;
+        if (!this.customers) {
+          $("#messageSearch").show();
+        } else {
+          $("#messageSearch").hide();
+        }
         console.log("検索");
       })
       .catch((e) => {
