@@ -4,57 +4,57 @@
       <div class="row">
         <div class="col-md-3 mb-3">
           <label>姓</label>
-          <input type="text" class="form-control" name="last_name" placeholder="姓" :value="customer.last_name" readonly />
+          <input type="text" class="form-control" name="last_name" placeholder="姓" v-if="customer" :value="customer.last_name" readonly />
         </div>
         <div class="col-md-3 mb-3">
           <label>名</label>
-          <input type="text" class="form-control" name="first_name" placeholder="名" :value="customer.first_name" readonly />
+          <input type="text" class="form-control" name="first_name" placeholder="名" v-if="customer" :value="customer.first_name" readonly />
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-3 mb-3">
           <label>姓かな</label>
-          <input type="text" class="form-control" name="last_kana" placeholder="姓かな" :value="customer.last_kana" readonly />
+          <input type="text" class="form-control" name="last_kana" placeholder="姓かな" v-if="customer" :value="customer.last_kana" readonly />
         </div>
         <div class="col-md-3 mb-3">
           <label>名かな</label>
-          <input type="text" class="form-control" name="first_kana" placeholder="名かな" :value="customer.first_kana" readonly />
+          <input type="text" class="form-control" name="first_kana" placeholder="名かな" v-if="customer" :value="customer.first_kana" readonly />
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-2 mb-3">
           <label>性別</label>
-          <input type="text" class="form-control" name="gender" :value='customer.gender == 1 ? "男" : "女"' readonly />
+          <input type="text" class="form-control" name="gender" v-if="customer" :value='customer.gender == 1 ? "男" : "女"' readonly />
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-2 mb-3">
           <label>郵便番号</label>
-          <input type="text" class="form-control" name="post_code" placeholder="郵便番号" :value="customer.post_code" readonly />
+          <input type="text" class="form-control" name="post_code" placeholder="郵便番号" v-if="customer" :value="customer.post_code" readonly />
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-7 mb-3">
           <label>住所</label>
-          <input type="text" class="form-control" name="address" placeholder="渋谷区道玄坂2丁目11-1" :value="customer.address" readonly />
+          <input type="text" class="form-control" name="address" placeholder="渋谷区道玄坂2丁目11-1" v-if="customer" :value="customer.address" readonly />
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-7 mb-3">
           <label>建物名</label>
-          <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" :value="customer.building" readonly />
+          <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" v-if="customer" :value="customer.building" readonly />
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6 mb-3">
           <label>メールアドレス</label>
-          <input type="email" class="form-control" name="email" placeholder="you@example.com" :value="customer.email" readonly />
+          <input type="email" class="form-control" name="email" placeholder="you@example.com" v-if="customer" :value="customer.email" readonly />
         </div>
       </div>
     </div>
