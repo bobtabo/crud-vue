@@ -91,10 +91,12 @@ export default {
     function completeConfirm(response){
       var buttons = {};
       buttons['キャンセル'] = function(){
-        $(this).dialog('close');response(false);
+        $(this).dialog('close');
+        response(false);
       };
       buttons['削除'] = function(){
-        $(this).dialog('close');response(true);
+        $(this).dialog('close');
+        response(true);
       };
 
       $("#complete-confirm").dialog({

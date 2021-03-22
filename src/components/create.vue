@@ -4,27 +4,27 @@
       【メッセージサンプル】エラーです。
     </div>
 
-    <form id="form" method="post" action="src/components/index.vuex.vue">
+    <form id="form" @submit.prevent="store">
       <div class="col-md-8 order-md-1">
         <div class="row">
           <div class="col-md-3 mb-3">
             <label>姓 <span class="badge badge-danger">必須</span></label>
-            <input type="text" class="form-control" name="last_name" placeholder="姓" value="" required>
+            <input type="text" class="form-control" v-if="customer" v-model="customer.last_name" name="last_name" placeholder="姓" value="" required>
           </div>
           <div class="col-md-3 mb-3">
             <label>名 <span class="badge badge-danger">必須</span></label>
-            <input type="text" class="form-control" name="first_name" placeholder="名" value="" required>
+            <input type="text" class="form-control" v-if="customer" v-model="customer.first_name" name="first_name" placeholder="名" value="" required>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-3 mb-3">
             <label>姓かな <span class="badge badge-danger">必須</span></label>
-            <input type="text" class="form-control" name="last_kana" placeholder="姓かな" value="" required>
+            <input type="text" class="form-control" v-if="customer" v-model="customer.last_kana" name="last_kana" placeholder="姓かな" value="" required>
           </div>
           <div class="col-md-3 mb-3">
             <label>名かな <span class="badge badge-danger">必須</span></label>
-            <input type="text" class="form-control" name="first_kana" placeholder="名かな" value="" required>
+            <input type="text" class="form-control" v-if="customer" v-model="customer.first_kana" name="first_kana" placeholder="名かな" value="" required>
           </div>
         </div>
 
@@ -33,11 +33,11 @@
             <label>性別 <span class="badge badge-danger">必須</span></label>
             <div class="col-sm-10 text-left">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" value="1">
+                <input class="form-check-input" type="radio" v-if="customer" v-model="customer.gender" name="gender" value="1">
                 <label class="form-check-label">男</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" value="2">
+                <input class="form-check-input" type="radio" v-if="customer" v-model="customer.gender" name="gender" value="2">
                 <label class="form-check-label">女</label>
               </div>
             </div>
@@ -47,28 +47,28 @@
         <div class="row">
           <div class="col-md-2 mb-3">
             <label>郵便番号 <span class="badge badge-danger">必須</span></label>
-            <input type="text" class="form-control" name="post_code" placeholder="郵便番号" value="" required>
+            <input type="text" class="form-control" v-if="customer" v-model="customer.post_code" name="post_code" placeholder="郵便番号" value="" required>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-5 mb-3">
             <label>住所 <span class="badge badge-danger">必須</span></label>
-            <input type="text" class="form-control" name="address" placeholder="渋谷区道玄坂2丁目11-1" value="" required>
+            <input type="text" class="form-control" v-if="customer" v-model="customer.address" name="address" placeholder="渋谷区道玄坂2丁目11-1" value="" required>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-5 mb-3">
             <label>建物名</label>
-            <input type="text" class="form-control" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="">
+            <input type="text" class="form-control" v-if="customer" v-model="customer.building" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="">
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-3 mb-3">
             <label>メールアドレス <span class="badge badge-danger">必須</span></label>
-            <input type="email" class="form-control" name="email" placeholder="you@example.com" value="" required>
+            <input type="email" class="form-control" v-if="customer" v-model="customer.email" name="email" placeholder="you@example.com" value="" required>
           </div>
         </div>
       </div>
@@ -87,6 +87,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      customer: null,
+    };
+  },
   mounted: function () {
     $("#complete").click(function() {
       completeConfirm(function(result){
@@ -99,10 +104,12 @@ export default {
     function completeConfirm(response){
       var buttons = {};
       buttons['キャンセル'] = function(){
-        $(this).dialog('close');response(false);
+        $(this).dialog('close');
+        response(false);
       };
       buttons['登録'] = function(){
-        $(this).dialog('close');response(true);
+        $(this).dialog('close');
+        response(true);
       };
 
       $("#complete-confirm").dialog({
@@ -119,6 +126,27 @@ export default {
         width: 400,
         modal: true,
         buttons: buttons
+      });
+    }
+  },
+  methods: {
+    store: function() {
+      const formData = new FormData();
+      formData.appned('last_name', this.customer.last_name);
+      formData.appned('first_name', this.customer.first_name);
+      formData.appned('last_kana', this.customer.last_kana);
+      formData.appned('first_kana', this.customer.first_kana);
+      formData.appned('gender', this.customer.gender);
+      formData.appned('post_code', this.customer.post_code);
+      formData.appned('address', this.customer.address);
+      formData.appned('building', this.customer.building);
+      formData.appned('email', this.customer.email);
+      this.axios.put('http://localhost/api/v1/customer/store', formData)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
       });
     }
   }
