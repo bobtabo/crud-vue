@@ -52,21 +52,21 @@
         </div>
 
         <div class="row">
-          <div class="col-md-5 mb-3">
+          <div class="col-md-7 mb-3">
             <label>住所 <span class="badge badge-danger">必須</span></label>
             <input type="text" class="form-control" v-model="address" name="address" placeholder="渋谷区道玄坂2丁目11-1" value="" required />
           </div>
         </div>
 
         <div class="row">
-          <div class="col-md-5 mb-3">
+          <div class="col-md-7 mb-3">
             <label>建物名</label>
             <input type="text" class="form-control" v-model="building" name="building" placeholder="Ｇスクエア渋谷道玄坂 4F" value="" />
           </div>
         </div>
 
         <div class="row">
-          <div class="col-md-3 mb-3">
+          <div class="col-md-6 mb-3">
             <label>メールアドレス <span class="badge badge-danger">必須</span></label>
             <input type="email" class="form-control" v-model="email" name="email" placeholder="you@example.com" value="" required />
           </div>
@@ -149,9 +149,10 @@ export default {
       formData.appned('address', this.address);
       formData.appned('building', this.building);
       formData.appned('email', this.email);
-      this.axios.put('http://localhost/api/v1/customer/store', formData)
+      this.axios.post('http://localhost/api/v1/customer/store', formData)
       .then(res => {
         console.log(res);
+        location.replace('/');
       })
       .catch(err => {
         console.log(err);

@@ -165,6 +165,7 @@ export default {
       })
       .then(res => {
         console.log(res);
+        location.replace('/');
       })
       .catch(err => {
         console.log(err);
